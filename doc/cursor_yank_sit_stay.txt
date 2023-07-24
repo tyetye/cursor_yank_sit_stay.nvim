@@ -1,0 +1,89 @@
+*cursor_yank_sit_stay.txt* For Neovim version 0.5 Last change: 2023 Jul 24
+
+                          *cursor_yank_sit_stay* *CursorYankSitStay*
+CursorYankSitStay is a Neovim plugin that helps to maintain the cursor position
+after yanking text. It also provides a visual highlight of the yanked area.
+
+By default, after a yank operation in Neovim, the cursor moves to the beginning
+of the yanked area. This can be disorienting if you're in the middle of editing
+text. CursorYankSitStay solves this problem by returning the cursor to its 
+original position after a yank operation.
+
+The name of the plugin is a playful reference to the behavior of a well-behaved
+dog. Like a good dog, the cursor "sits and stays" where you tell it to, even
+after an active "fetch" (yank) command.
+
+==============================================================================
+Contents~
+
+1. Commands |CursorYankSitStay-commands|
+2. Configuration |CursorYankSitStay-configuration|
+3. Installation |CursorYankSitStay-installation|
+
+==============================================================================
+Commands~
+
+:CursorYankSitStayEnable
+    Enable the CursorYankSitStay plugin.
+
+:CursorYankSitStayDisable
+    Disable the CursorYankSitStay plugin. Note that this only disables the cursor
+    position maintaining feature, the yank highlighting will still work as it is
+    a standard part of Neovim.
+
+:CursorYankSitStayToggle
+    Toggle the CursorYankSitStay plugin on and off.
+
+This plugin does not provide any default keymaps. You have to define your own
+keymaps to use the above commands. Here are some examples:
+
+    nnoremap <leader>cyse :CursorYankSitStayEnable<CR>
+    nnoremap <leader>cysd :CursorYankSitStayDisable<CR>
+    nnoremap <leader>cyst :CursorYankSitStayToggle<CR>
+
+==============================================================================
+Configuration~
+
+The following options can be set in your Neovim configuration file to control
+the behavior of CursorYankSitStay:
+
+- `highlight_group` (default: 'IncSearch')
+    This option controls the highlight group used for the yank highlight. You
+    can set it to any valid highlight group. Other possibly good options include
+    'Underlined'.
+
+- `highlight_durations` (default: { char = 1000, line = 500 })
+    This option controls the duration of the yank highlight for different types
+    of yanks (character-wise, line-wise). The duration is in milliseconds.
+
+- `enabled` (default: true)
+    This option controls whether the plugin is enabled or not.
+
+==============================================================================
+Installation~
+
+1. Use a plugin manager such as Packer:
+    ```
+    use {
+      'YourGithubUsername/cursor_yank_sit_stay',
+      config = function()
+        require('cursor_yank_sit_stay').setup({
+          highlight_group = 'IncSearch',
+          highlight_durations = {
+            char = 1000,
+            line = 500,
+          },
+          enabled = true,
+        })
+      end,
+    }
+    ```
+    Replace 'YourGithubUsername/cursor_yank_sit_stay' with your actual Github
+    username and repository name. Replace the configuration options with your
+    desired settings.
+
+2. After installing the plugin with your plugin manager, restart Neovim.
+
+------------------------------------------------------------------------------
+vim:tw=78:ts=8:ft=help:norl:
+
